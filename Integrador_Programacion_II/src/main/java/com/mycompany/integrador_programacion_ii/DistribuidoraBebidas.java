@@ -26,7 +26,6 @@ public class DistribuidoraBebidas {
     }
     
     //Getters y Setters
-
     public String getNombre() {
         return nombre;
     }

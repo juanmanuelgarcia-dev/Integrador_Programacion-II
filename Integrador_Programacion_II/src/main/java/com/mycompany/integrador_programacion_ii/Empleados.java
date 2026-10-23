@@ -47,8 +47,8 @@ public class Empleados {
         this.nombre = nombre;
     }
     
-    public void insertaeVenta(){
-        
+    public void insertarVenta(){
+        System.out.println("El empleaado");
     }
     
     public void mostrarInformacionProducto(){
