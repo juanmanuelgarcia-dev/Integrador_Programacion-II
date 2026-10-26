@@ -10,9 +10,9 @@ package com.mycompany.integrador_programacion_ii;
  */
 public abstract class Bebida {
     //Atributos
-    private String marca;
-    private int cantidad;
-    private double precio;
+    protected String marca;
+    protected int cantidad;
+    protected double precio;
 
     //Contructor
     public Bebida(String marca, int cantidad, double precio) {
@@ -49,6 +49,15 @@ public abstract class Bebida {
     //Metodos
     public void registrarNumeroLote(int numeroLote){
         System.out.println("La bebida " + this.marca + " corresponde al numero de lote " + numeroLote);
+    }
+    
+    public void mostrarDetalles(){
+        System.out.println("La bebida " + this.marca + " cuesta " + this.precio);
+    }
+    
+    public void calcularPrecio(){
+        double total = this.cantidad* this.precio;
+        System.out.println("El precio por la cantidad de " + this.cantidad + " unidades es de " + total);
     }
     
     

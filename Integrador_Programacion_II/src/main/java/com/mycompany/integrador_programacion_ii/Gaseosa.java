@@ -13,14 +13,10 @@ public class Gaseosa extends Bebida{
     private boolean esZero;
     
     //Constructor
-    public Gaseosa(String marca, int cantidad, double precio) {
-        super(marca, cantidad, precio);
-    }
-
     public Gaseosa(double cantidadAzucar, boolean esZero, String marca, int cantidad, double precio) {
         super(marca, cantidad, precio);
         this.cantidadAzucar = cantidadAzucar;
-        this.esZero = false;
+        this.esZero = esZero;
     }
     
     public void calcularCantidadAzucar(){
@@ -28,6 +24,28 @@ public class Gaseosa extends Bebida{
             System.out.println("No posee azúcar");
         }else{
             System.out.println("Su cantidad de azucar es " + this.cantidadAzucar);
+        }
+    }
+    
+    //Overloading=Sobrecarga
+    public void calcularPrecio(int descuento,boolean descuentoAplicado){
+        if (descuentoAplicado == true){
+            double descuentoTotal = 1 - (descuento / 100.0);
+        double total = this.cantidad * this.precio * descuentoTotal;
+        System.out.println("El precio por la cantidad de " + this.cantidad + " unidades es de " + total);
+        }else{
+            double total = this.cantidad * this.precio;
+            System.out.println("El precio por la cantidad de " + this.cantidad + " unidades es de " + total);
+        }
+    }
+    
+    //Override=Sobreescritura
+    @Override
+    public void mostrarDetalles(){
+        if (esZero == true){
+            System.out.println("La gaseosa de la marca " + this.marca + " cuesta " + this.precio + " tiene una cantidad de azucar de " + this.cantidadAzucar + " gramos");      
+        }else{
+            System.out.println("La gaseosa de la marca " + this.marca + " cuesta " + this.precio + " y es zero, NO tiene azucar");
         }
     }  
 }

@@ -17,7 +17,7 @@ public class Cerveza extends Bebida{
     public Cerveza(double graduacionAlcoholica, boolean esRetornable, String marca, int cantidad, double precio) {
         super(marca, cantidad, precio);
         this.graduacionAlcoholica = graduacionAlcoholica;
-        this.esRetornable = false;
+        this.esRetornable = esRetornable;
     }
 
     
@@ -42,4 +42,26 @@ public class Cerveza extends Bebida{
     public void calcularGraduacionAlcoholica(){
         System.out.println("La graduacion alcoholica de esta cerveza marca " + this.getMarca() + " es " + this.graduacionAlcoholica);
     }
+    
+    //Overloading=Sobrecarga
+    public void calcularPrecio(int descuento){
+        if (esRetornable == true){
+            double descuentoTotal = 1 - (descuento / 100.0);
+        double total = this.cantidad * this.precio * descuentoTotal;
+        System.out.println("El precio por la cantidad de " + this.cantidad + " unidades es de " + total);
+        }else{
+            double total = this.cantidad * this.precio;
+            System.out.println("El precio por la cantidad de " + this.cantidad + " unidades es de " + total);
+        }
+    }
+    
+    //Override=Sobreescritura
+    @Override
+    public void mostrarDetalles(){
+        if (esRetornable == true){
+            System.out.println("La cerveza de la marca " + this.marca + " cuesta " + this.precio + " tiene graduacion alcoholica " + this.graduacionAlcoholica + " y es retornable");      
+        }else{
+            System.out.println("La cerveza de la marca " + this.marca + " cuesta " + this.precio + " tiene graduacion alcoholica " + this.graduacionAlcoholica + " y NO es retornable");
+        }
+    }  
 }
