@@ -11,13 +11,17 @@ package com.mycompany.integrador_programacion_ii;
 public class Proveedores {
     //Atributos
     private String razonSocial;
-    private Bebida tipoBebida;
+    private Cerveza tipoCerveza;
+    private Gaseosa tipoGaseosa;
     
     //Constructores
-    public Proveedores(String razonSocial, Bebida tipoBebida) {
+
+    public Proveedores(String razonSocial, Cerveza tipoCerveza, Gaseosa tipoGaseosa) {
         this.razonSocial = razonSocial;
-        this.tipoBebida = tipoBebida;
+        this.tipoCerveza = tipoCerveza;
+        this.tipoGaseosa = tipoGaseosa;
     }
+    
 
     //Getters and setters
     public String getRazonSocial() {
@@ -28,22 +32,29 @@ public class Proveedores {
         this.razonSocial = razonSocial;
     }
 
-    public Bebida getTipoBebida() {
-        return tipoBebida;
+    public Cerveza getTipoCerveza() {
+        return tipoCerveza;
     }
 
-    public void setTipoBebida(Bebida tipoBebida) {
-        this.tipoBebida = tipoBebida;
+    public void setTipoCerveza(Cerveza tipoCerveza) {
+        this.tipoCerveza = tipoCerveza;
+    }
+
+    public Gaseosa getTipoGaseosa() {
+        return tipoGaseosa;
+    }
+
+    public void setTipoGaseosa(Gaseosa tipoGaseosa) {
+        this.tipoGaseosa = tipoGaseosa;
     }
     
+    
+    
     //Metodos
-    public void enviarBebida(int cantidad){
-        System.out.println("La bebida " + this.tipoBebida.getMarca() + " fue enviada, se envió la cantidad de  " + cantidad);
+    public void enviarBebida(){
+        
     }
     
     public void enviarPresupuesto(int cantidad,double precioUnitarioMayorista){
-        double costoTotal = cantidad * precioUnitarioMayorista;
-        System.out.println("El proveedor " + this.razonSocial + " nos envia el presupuesto de la bebida " + this.tipoBebida.getMarca() + " que es por el total de " + costoTotal);
-    }
- 
+        double costoTotal = cantidad * precioUnitarioMayorista;      
 }

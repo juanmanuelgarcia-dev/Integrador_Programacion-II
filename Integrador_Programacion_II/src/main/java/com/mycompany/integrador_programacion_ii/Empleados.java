@@ -51,7 +51,11 @@ public class Empleados {
         System.out.println("El empleaado");
     }
     
-    public void mostrarInformacionProducto(){
+    public void RegistrarVenta(){
         
+    }
+    
+    public void mostrarInformacion(){
+        System.out.println("El empleado " + this.nombre + " con el numero de telefono " + this.telefono + " tiene el id " + this.id);
     }
 }
