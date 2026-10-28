@@ -21,7 +21,6 @@ public class Proveedores {
         this.tipoCerveza = tipoCerveza;
         this.tipoGaseosa = tipoGaseosa;
     }
-    
 
     //Getters and setters
     public String getRazonSocial() {
@@ -48,13 +47,15 @@ public class Proveedores {
         this.tipoGaseosa = tipoGaseosa;
     }
     
-    
-    
     //Metodos
     public void enviarBebida(){
-        
+        System.out.println("El proveedor " + this.razonSocial + " envio la cerveza de marca " + this.tipoCerveza.getMarca() + " y la gaseosa " + this.tipoGaseosa.getMarca());
     }
     
-    public void enviarPresupuesto(int cantidad,double precioUnitarioMayorista){
-        double costoTotal = cantidad * precioUnitarioMayorista;      
+    public void enviarPresupuesto(){
+        double presupuestoCerveza = this.tipoCerveza.cantidad * this.tipoCerveza.precio;
+        double presupuestoGaseosa = this.tipoGaseosa.cantidad * this.tipoGaseosa.precio;
+        System.out.println("El presupuesto por cerveza de marca " + this.tipoCerveza.getMarca() + " es de " + presupuestoCerveza);
+        System.out.println("El presupuesto por cerveza de marca " + this.tipoGaseosa.getMarca() + " es de " + presupuestoGaseosa);
+    }
 }
