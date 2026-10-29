@@ -13,18 +13,11 @@ import java.util.Scanner;
 import java.util.InputMismatchException;
 import java.util.Date;
 
-public class Main {
+public class Integrador_Programacion_II {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         DistribuidoraBebidas distribuidora = new DistribuidoraBebidas("Distribuidora de Bebidas S.A.");
-        //Defino el tipo de variable para no tener que hacerlo cada vez que desee asignarle un valor
         int opcion;
-        int id;
-        String nombre;
-        String telefono;
-        String dni;
-        String razonSocial;
-        
         System.out.println("Bienvenido a la Distribuidora de bebidas S.A.");
         do{
             //Primer switch para ingresar al sistema o al control de stock
@@ -38,6 +31,19 @@ public class Main {
             switch (opcion){
                 case 1:
                     System.out.println("Bienvenido a la Gestion de Inventario y Base de datos");
+                    do{
+                        
+                        int opciondb = sc.nextInt();
+                        sc.nextLine();
+                        System.out.println("1. Crea las tablas para controlar el stock(solo si no existen) ");
+                        System.out.println("2. ");
+                        
+                        switch (opciondb){
+                            case 1:
+                                System.out.println("Configuracion base de datos");
+                                
+                        }
+                    } while (opcion != 4);
                     
                 case 2:
                     System.out.println("Bienvenido al Sistema de control sobre la información de la distribuidora");
@@ -53,6 +59,8 @@ public class Main {
                         System.out.println("8. Calcular precios de las bebidas");
                         System.out.println("9. Mostrar detalles de las bebidas");
                         System.out.println("10. Salir");
+                        opcion = sc.nextInt();
+                        sc.nextLine();
                         
                         switch (opcion){
                             
@@ -60,12 +68,12 @@ public class Main {
                                 //Manejo de excepciones por si se produce un error de ingreso
                                 try{
                                     System.out.println("Ingrese el id del empleado: ");
-                                    id = sc.nextInt();
+                                    int id = sc.nextInt();
                                     sc.nextLine();
                                     System.out.println("Ingrese el nombre del empleado");
-                                    nombre = sc.nextLine();
+                                    String nombre = sc.nextLine();
                                     System.out.println("Ingrese el celular del empleado");
-                                    telefono = sc.nextLine();
+                                    String telefono = sc.nextLine();
                                     
                                     //Instancio la clase empleado
                                     Empleados nuevoEmpleado = new Empleados(id,telefono,nombre);
@@ -80,7 +88,7 @@ public class Main {
                                //Manejo de excepciones por si se produce un error de ingeso o de busqueda
                                 try{
                                     System.out.println("Ingrese el id del empleado: ");
-                                    id = sc.nextInt();
+                                    int id = sc.nextInt();
                                     sc.nextLine();
                                     distribuidora.eliminarEmpleado(id);
                                     
@@ -95,9 +103,9 @@ public class Main {
                                 //Manejo de excepciones por si se produce un error de ingreso
                                 try{
                                     System.out.println("Ingrese el nombre del cliente");
-                                    nombre = sc.nextLine();
+                                    String nombre = sc.nextLine();
                                     System.out.println("Ingresar el dni del clliente");
-                                    dni = sc.nextLine();
+                                    String dni = sc.nextLine();
                                     String respuesta;
                                     boolean estaInteresado = false;
                                     do{
@@ -134,7 +142,7 @@ public class Main {
                                 //Manejo de excepciones por si se produce un error de ingeso o de busqueda
                                 try{
                                     System.out.println("Ingrese el dni del cliente: ");
-                                    dni = sc.nextLine();
+                                    String dni = sc.nextLine();
                                     distribuidora.eliminarClientes(dni);
                                     
                                 } catch (ClientesNoEncontradosException e){
@@ -146,12 +154,14 @@ public class Main {
                                 //Manejo de excepciones por si se produce un error de ingreso
                                 try{
                                     //Ingresamos todos los datos que puede ingresar el usuario para cerveza
-                                    System.out.println("Ingrese la razon social del proveedor");
-                                    razonSocial = sc.nextLine();
-                                    System.out.println("Ingrese la marca de la cerveza");
+                                    System.out.println("Ingrese la razon social del proveedor: ");
+                                    String razonSocial = sc.nextLine();
+                                    System.out.println("Ingrese la marca de la cerveza: ");
                                     String marcaCerveza = sc.nextLine();
-                                    System.out.println("Ingrese la cantidad de botellas de cerveza");
+                                    System.out.println("Ingrese la cantidad de botellas de cerveza que desea: ");
                                     int cantidadCerveza = sc.nextInt();
+                                    System.out.println("Ingrese el stock de cerveza que tiene en bodega: ");
+                                    int stockCerveza = sc.nextInt();
                                     System.out.println("Ingrese el precio unitario por cerveza");
                                     Double precioUnitarioCerveza = sc.nextDouble();
                                     System.out.println("Ingrese la graduacion alcoholica de la cerveza");
@@ -172,16 +182,19 @@ public class Main {
                                         }
                                     }while (!respuesta.equalsIgnoreCase("s") && !respuesta.equalsIgnoreCase("n"));            
                                     //Instanciamos la clase cerveza
-                                    Cerveza cerveza = new Cerveza(graduacionAlcoholica,esRetornable,marcaCerveza,cantidadCerveza,precioUnitarioCerveza);
+                                    Cerveza cerveza = new Cerveza(graduacionAlcoholica,esRetornable,marcaCerveza,precioUnitarioCerveza,stockCerveza);
                                 
                                     //Ingresamos todos los datos que puede ingresar el usuario para gaseosa
-                                    System.out.println("Ingrese la marca de la gaseosa");
+                                    System.out.println("Ingrese la marca de la gaseosa: ");
                                     String marcaGaseosa = sc.nextLine();
-                                    System.out.println("Ingrese la cantidad de botellas de gaseosa");
+                                    System.out.println("Ingrese la cantidad de botellas de gaseosa que desea: ");
                                     int cantidadGaseosa = sc.nextInt();
-                                    System.out.println("Ingrese el precio unitario por gaseosa");
+                                    System.out.println("Ingrese el stock de botellas de gaseosa que tiene en bodega: ");
+                                    int stockGaseosa = sc.nextInt();
+                                    System.out.println("Ingrese el precio unitario por gaseosa: ");
                                     double precioUnitarioGaseosa = sc.nextDouble();
-                                    System.out.println("Ingrese la graduacion de azucar de la gaseosa (0 si no contiene) ");
+                                    sc.nextLine();
+                                    System.out.println("Ingrese la graduacion de azucar de la gaseosa (0 si no contiene): ");
                                     boolean esZero = false;
                                     double gradosAzucar = sc.nextDouble();
                                     if (gradosAzucar == 0){
@@ -189,12 +202,11 @@ public class Main {
                                     }
                                 
                                     //Instanciamos la clase gaseosa
-                                    Gaseosa gaseosa = new Gaseosa(gradosAzucar,esZero,marcaGaseosa,cantidadGaseosa,precioUnitarioGaseosa);
-                                
+                                    Gaseosa gaseosa = new Gaseosa(gradosAzucar, esZero, marcaGaseosa, precioUnitarioGaseosa, stockGaseosa);
                                     //Instancio la clase proveedor para agregarla a mi arraylist
                                     Proveedores nuevoProveedor = new Proveedores(razonSocial,cerveza,gaseosa);
                                     //Llamo al metodo para pedirle presupuesto y enviar bebidas al proveedor
-                                    nuevoProveedor.enviarPresupuesto();
+                                    nuevoProveedor.enviarPresupuesto(cantidadCerveza,cantidadGaseosa);
                                     nuevoProveedor.enviarBebida();
                                     
                                     distribuidora.agregarProveedores(nuevoProveedor);
@@ -207,7 +219,7 @@ public class Main {
                                 //Manejo de excepciones por si se produce un error de ingeso o de busqueda
                                 try{
                                     System.out.println("Ingrese la razon social del proveedor ");
-                                    razonSocial = sc.nextLine();
+                                    String razonSocial = sc.nextLine();
                                     distribuidora.eliminarClientes(razonSocial);
                                 } catch (ClientesNoEncontradosException e){
                                     System.out.println(e.getMessage());
@@ -226,20 +238,20 @@ public class Main {
                                 
                                 //Pedimos los atributos para instanciar cliente
                                 System.out.println("Ingrese el nombre del cliente que compro: ");
-                                nombre = sc.nextLine();
+                                String nombre = sc.nextLine();
                                 System.out.println("Ingrese el dni del cliente que compro: ");
-                                dni = sc.nextLine();
+                                String dni = sc.nextLine();
                                 //Ya realizo la compra asi que tomamos el interes del cliente
                                 boolean interes = true;
                                 
                                 //Pedimos los atributos para instanciar empleado
                                 System.out.println("Ingrese el id del empleado: ");
-                                id = sc.nextInt();
+                                int id = sc.nextInt();
                                 sc.nextLine();
                                 System.out.println("Ingrese el nombre del empleado que realizo la venta: ");
                                 nombre = sc.nextLine();
                                 System.out.println("Ingrese el telefono del empleadp que realizo la venta: ");
-                                telefono = sc.nextLine();
+                                String telefono = sc.nextLine();
                                 
                                 Clientes clienteQueRealizoCompra = new Clientes(nombre,dni,interes);
                                 Empleados empleadoQueRealizoLaVenta = new Empleados(id,telefono,nombre);
@@ -253,6 +265,9 @@ public class Main {
                             case 8:
                                 
                                 //El for para que itere por cada proveedor guardado en la lista
+                                System.out.println("Ingrese la cantidad de gaseosa que tiene: ");
+                                int cantidadT = sc.nextInt();
+                                sc.nextLine();
                                 for (Proveedores proveedor : distribuidora.getListaProveedores()) {
                                     System.out.println("Bebidas del proveedor: " + proveedor.getRazonSocial());  
                                     
@@ -265,7 +280,7 @@ public class Main {
                                     System.out.println("Ingrese el descuento para gaseosa");
                                     int descuentoGaseosa = sc.nextInt();
                                     sc.nextLine();
-                                    proveedor.getTipoGaseosa().calcularPrecio(descuentoGaseosa, true);
+                                    proveedor.getTipoGaseosa().calcularPrecio(descuentoGaseosa, true,cantidadT);
                                 }
                                 break;
                                 
@@ -283,6 +298,7 @@ public class Main {
                                 System.out.println("Gracias por usar el Sistema de control sobre la información de la distribuidora");
                             default:
                                 System.out.println("Ingrese una opcion valida");
+                                break;
                                 
                         }
                     }while (opcion != 10);

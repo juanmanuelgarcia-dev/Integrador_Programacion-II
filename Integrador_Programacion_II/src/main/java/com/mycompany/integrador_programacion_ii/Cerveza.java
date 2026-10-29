@@ -14,8 +14,8 @@ public class Cerveza extends Bebida{
     private boolean esRetornable;
     
     //Constructor
-    public Cerveza(double graduacionAlcoholica, boolean esRetornable, String marca, int cantidad, double precio) {
-        super(marca, cantidad, precio);
+    public Cerveza(double graduacionAlcoholica, boolean esRetornable, String marca, double precio,int stock) {
+        super(marca, precio,stock);
         this.graduacionAlcoholica = graduacionAlcoholica;
         this.esRetornable = esRetornable;
     }
@@ -44,14 +44,14 @@ public class Cerveza extends Bebida{
     }
     
     //Overloading=Sobrecarga
-    public void calcularPrecio(int descuento){
+    public void calcularPrecio(int descuento,int cantidadAgregar){
         if (esRetornable == true){
             double descuentoTotal = 1 - (descuento / 100.0);
-        double total = this.cantidad * this.precio * descuentoTotal;
-        System.out.println("El precio por la cantidad de " + this.cantidad + " unidades es de " + total);
+        double total = cantidadAgregar * this.precio * descuentoTotal;
+        System.out.println("El precio por la cantidad de " + cantidadAgregar + " unidades es de " + total);
         }else{
-            double total = this.cantidad * this.precio;
-            System.out.println("El precio por la cantidad de " + this.cantidad + " unidades es de " + total);
+            double total = cantidadAgregar * this.precio;
+            System.out.println("El precio por la cantidad de " + cantidadAgregar + " unidades es de " + total);
         }
     }
     

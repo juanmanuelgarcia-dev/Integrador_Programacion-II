@@ -79,10 +79,10 @@ public class DistribuidoraBebidas {
                 System.out.println("El empleado " + empleadoBuscado.getId() + " fue removido con éxito");
                 break; //Salimos del bucle
             }
-            if (encontrado == false){
+        }
+        if (!encontrado){
                 throw new EmpleadoNoEncontradoException("El empleado NO se encuentra en la lista de empleados");
             }
-        }
     }
     
     public void agregarClientes(Clientes cliente){
@@ -98,7 +98,7 @@ public class DistribuidoraBebidas {
         while (listaClientesIterator.hasNext()){
             Clientes clienteBuscado = listaClientesIterator.next();
             
-            if (clienteBuscado.getDni() == dni){
+            if (clienteBuscado.getDni().equals(dni)){
                 listaClientesIterator.remove();
                 encontrado = true;
                 System.out.println("El cliente " + clienteBuscado.getDni() + " fue removido con éxito");
@@ -123,7 +123,7 @@ public class DistribuidoraBebidas {
         while (listaProveedoresIterator.hasNext()){
             Proveedores proveedorBuscado = listaProveedoresIterator.next();
             
-            if (proveedorBuscado.getRazonSocial() == razonSocial){
+            if (proveedorBuscado.getRazonSocial().equals(razonSocial)){
                 listaProveedoresIterator.remove();
                 encontrado = true;
                 System.out.println("El proveedor " + proveedorBuscado.getRazonSocial() + " fue removido con éxito");

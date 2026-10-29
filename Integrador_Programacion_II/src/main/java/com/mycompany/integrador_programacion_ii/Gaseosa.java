@@ -13,8 +13,8 @@ public class Gaseosa extends Bebida{
     private boolean esZero;
     
     //Constructor
-    public Gaseosa(double cantidadAzucar, boolean esZero, String marca, int cantidad, double precio) {
-        super(marca, cantidad, precio);
+    public Gaseosa(double cantidadAzucar, boolean esZero, String marca, double precio,int stock) {
+        super(marca, precio,stock);
         this.cantidadAzucar = cantidadAzucar;
         this.esZero = esZero;
     }
@@ -28,14 +28,14 @@ public class Gaseosa extends Bebida{
     }
     
     //Overloading=Sobrecarga
-    public void calcularPrecio(int descuento,boolean descuentoAplicado){
+    public void calcularPrecio(int descuento,boolean descuentoAplicado,int cantidad){
         if (descuentoAplicado == true){
             double descuentoTotal = 1 - (descuento / 100.0);
-        double total = this.cantidad * this.precio * descuentoTotal;
-        System.out.println("El precio por la cantidad de " + this.cantidad + " unidades es de " + total);
+        double total = cantidad * this.precio * descuentoTotal;
+        System.out.println("El precio por la cantidad de " + cantidad + " unidades es de " + total);
         }else{
-            double total = this.cantidad * this.precio;
-            System.out.println("El precio por la cantidad de " + this.cantidad + " unidades es de " + total);
+            double total = cantidad * this.precio;
+            System.out.println("El precio por la cantidad de " + cantidad + " unidades es de " + total);
         }
     }
     
@@ -48,4 +48,6 @@ public class Gaseosa extends Bebida{
             System.out.println("La gaseosa de la marca " + this.marca + " cuesta " + this.precio + " y es zero, NO tiene azucar");
         }
     }  
+    
+    
 }
