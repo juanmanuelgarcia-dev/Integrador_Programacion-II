@@ -31,32 +31,39 @@ public class conexionDB {
     }
     
     public void inicializarBaseDeDatos(){
+        //Primero borramos las tablas si ya existen
+        String borrarGaseosa = "DROP TABLE IF EXISTS gaseosas";
+        String borrarCerveza = "DROP TABLE IF EXISTS cerveza";
+        
+        //Creamos ambas tablas gaseosas y cerveza
         String sqlgaseosas = """
-                CREATE TABLE IF NOT EXISTS gaseosas(
+                CREATE TABLE gaseosas(
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
                     marca TEXT NOT NULL,
                     precio REAL NOT NULL,
-                    stock INTEGER NOT NULL(stock >= 0),
+                    stock INTEGER NOT NULL CHECK (stock >= 0),
                     cantidadAzucar REAL NOT NULL,
                     esZero INTEGER NOT NULL   
                                           );
                              """;
+        
         String sqlcerveza = """
                 CREATE TABLE IF NOT EXISTS cerveza(
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
                     marca TEXT NOT NULL,
                     precio REAL NOT NULL,
-                    stock INTEGER NOT NULL (stock >= 0),
+                    stock INTEGER NOT NULL CHECK (stock >= 0),
                     graduacionAlcoholica REAL NOT NULL,
                     esRetornable INTEGER NOT NULL
                                 );
                             """;
+        
         try (Statement stmt = conn.createStatement()) {
         
         stmt.execute(sqlgaseosas);
         stmt.execute(sqlcerveza);
         
-        System.out.println("[ÉXITO] Base de datos y tablas listas para usar.");
+        System.out.println("Base de datos y tablas listas para usar.");
         
     } catch (SQLException e) {
         System.out.println("Error al crear las tablas: " + e.getMessage());
@@ -80,7 +87,7 @@ public class conexionDB {
             //usamos executeupdate para modificar datos
             pstmt.executeUpdate();
             
-            System.out.println("Gaseosa guardado en la base de datos exitosamente");
+            System.out.println("Gaseosa " + marca + " guardada en la base de datos exitosamente");
         }catch (SQLException e){
             System.out.println("Error el insertar gaseosa en la base de datos " + e.getMessage());
         }
@@ -103,7 +110,7 @@ public class conexionDB {
             //modificamos los datos
             pstmt.executeUpdate();
             
-            System.out.println("Cerveza guardado en la base de datos exitosamente");
+            System.out.println("Cerveza " + marca + " guardado en la base de datos exitosamente");
             
         }catch (SQLException e){
             System.out.println("Error al insertar cerveza en la base de datos " + e.getMessage());
@@ -137,6 +144,33 @@ public class conexionDB {
         }
     }
     
+    //Metodo para actualizar el precio y stock de cerveza trabajando con su id
+    public void actualizarCerveza(int id,double precio,int stock){
+        //definimos la sentencia sql para modificar registros ya existentes
+        String sql = "UPDATE cerveza SET precio = ?,stock = ? WHERE id = ?";
+        
+        //preparamos la consulta utilizando la conexion ya existente
+        try (PreparedStatement pstmt = this.conn.prepareStatement(sql)){
+            
+            //asignamos los nuevos valores para actualizar a cada ?
+            pstmt.setDouble(1, precio);
+            pstmt.setInt(2,stock);
+            pstmt.setInt(3,id);
+            
+            //realizamos execute update que devuelve cuantas filas fueron actualizadas
+            int filasActualizadas = pstmt.executeUpdate();
+            
+            //si es mayor que 0, la actualizacion fue exitosa
+            if (filasActualizadas > 0){
+                System.out.println("Cerveza actualizada exitosamente");
+            }else{
+                System.out.println("No se encontro ninguna cerveza con el id " + id);
+            }
+        }catch (SQLException e){
+            System.out.println("Error al actualizar cerveza " + e.getMessage());
+        }
+    }
+    
     //Metodo para eliminar una gaseosa con su id
     public void eliminarGaseosa(int id){
         //sentencia para eliminar el registro con el id que nosotros deseemos
@@ -159,6 +193,31 @@ public class conexionDB {
             }
         }catch (SQLException e){
             System.out.println("Error al eliminar gaseosa " + e.getMessage());
+        }
+    }
+    
+    //Metodo para eliminar una cerveza con su id
+    public void eliminarCerveza(int id){
+        //sentencia para eliminar el registro con el id que nosotros deseemos
+        String sql = "DELETE FROM cerveza WHERE id = ?";
+        
+        //preparamos la consulta utilizando la instancia de la conexion
+        try (PreparedStatement pstmt = this.conn.prepareStatement(sql)){
+            
+            //asignamos el id de cerveza al unico comodin
+            pstmt.setInt(1, id);
+            
+            //ejecutamos la sentencia y guardamos las filas eliminadas
+            int filasEliminadas = pstmt.executeUpdate();
+            
+            //si las filas eliminadas son > 0 se borro exitosamente
+            if (filasEliminadas > 0){
+                System.out.println("La eliminacion de cerveza fue realizada exitosamente");
+            }else{
+                System.out.println("La cerveza con el id " + id + " no fue encontrada");
+            }
+        }catch (SQLException e){
+            System.out.println("Error al eliminar cerveza " + e.getMessage());
         }
     }
     
@@ -197,6 +256,44 @@ public class conexionDB {
         } catch (SQLException e){
             //si se produce un error
             System.out.println("Error al consultar para ver las gaseosas " + e.getMessage());
+        }
+    }
+    
+    //Metodos para ver la tabla de cerveza
+    public void verTablaCerveza(){
+        //definimos la sentencia para leer los registros de la tabla
+        String sql = "SELECT * FROM cerveza";
+        
+        //Al no haber ? usamos statement
+        //excute query devuelve un objeto resultset que contiene todas las filas de la consulta
+        try (Statement stmt = this.conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+            System.out.println("LISTADO DE CERVEZAS");
+            
+            //iteramos con while mientras queden registros
+            boolean hayRegistros = false;
+            while (rs.next()){
+                hayRegistros = true;
+                
+                //extraemos los valores de cada columna utilizando el tipo de dato correspondiente
+                int id = rs.getInt("id");
+                String marca = rs.getString("marca");
+                double precio = rs.getDouble("precio");
+                int stock = rs.getInt("stock");
+                double graduacionAlcoholica = rs.getDouble("graduacionAlcoholica");
+                int esRetornable = rs.getInt("esRetornable");
+                
+                //mostramos la tabla
+                System.out.println("ID: " + id + ", Marca: " + marca + ", Precio: " + precio + ", Stock: " + stock + ",Graduacion Alcohólica: " + graduacionAlcoholica + " Es Retornable(0. No, 1. Si) " + esRetornable);
+                
+                //si no hay registros es que no hemos cargado cerveza
+                if (!hayRegistros){
+                    System.out.println("No hay cervezas cargadas en la base de datos");
+                }
+            }
+        } catch (SQLException e){
+            //si se produce un error
+            System.out.println("Error al consultar para ver las cervezas " + e.getMessage());
         }
     }
 }
