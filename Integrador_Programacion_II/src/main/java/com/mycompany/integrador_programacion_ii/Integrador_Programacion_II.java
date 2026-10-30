@@ -32,18 +32,130 @@ public class Integrador_Programacion_II {
                 case 1:
                     System.out.println("Bienvenido a la Gestion de Inventario y Base de datos");
                     do{
+                        System.out.println("1. Crea las tablas para controlar el stock(solo si no existen las tablas) ");
+                        System.out.println("2. Cargar valores en las tablas de gaseosa");
+                        System.out.println("3. Cargar valores en las tablas de cerveza");
+                        System.out.println("4. Actualizar valores de las tablas de gaseosa");
+                        System.out.println("5. Actualizar valores de las tablas de cerveza");
+                        System.out.println("6. Eliminar valores de las tablas de gaseosa");
+                        System.out.println("7. Eliminar valores de las tablas de cerveza");
+                        System.out.println("8. Ver valores de las tablas de gaseosa");
+                        System.out.println("9. Ver valores de las tablas de cerveza");
+                        System.out.println("10. Salir");
+                        System.out.println("Seleccione una de las opciones: ");
                         
                         int opciondb = sc.nextInt();
                         sc.nextLine();
-                        System.out.println("1. Crea las tablas para controlar el stock(solo si no existen) ");
-                        System.out.println("2. ");
                         
                         switch (opciondb){
+                            
                             case 1:
+                                //Creo las tablas, solo una vez ya que despues quedan guardadas
                                 System.out.println("Configuracion base de datos");
+                                conexionDB conexion = new conexionDB();
+                                conexion.inicializarBaseDeDatos();
+                                break;
                                 
+                            case 2:
+                                try {
+                                    System.out.println("Marca de la gaseosa: ");
+                                    String marcaG = sc.nextLine();
+                                    System.out.println("Precio unitario de la gaseosa: ");
+                                    double precioUnitarioG = sc.nextDouble();
+                                    System.out.println("Stock de la gaseosa: ");
+                                    int stockG = sc.nextInt();
+                                    System.out.println("Cantidad de azucar de la gaseosa(0 si no tiene) ");
+                                    double cantidadAzcuarG = sc.nextDouble();
+                                    int esZeroG = 1;
+                                    if (cantidadAzcuarG == 0){
+                                        esZeroG = 0;
+                                    }
+                                    
+                                    //reutilizamos la variable ya existente para trabajar con la instancia de conexion
+                                    conexion = new conexionDB();
+                                    //llamamos al metodo para insertar gaseosas en la base de datos
+                                    conexion.insertarGaseosas(marcaG, precioUnitarioG, stockG, cantidadAzcuarG, esZeroG);
+                                    
+                                }catch (InputMismatchException e){
+                                    System.out.println("Ingrese los valores que son pedidos");
+                                }
+                                    break;
+                            
+                            case 3:
+                                //Pido la informacion para agregar en la tabla de cerveza
+                                try{
+                                    System.out.println("Marca de la cerveza: ");
+                                    String marcaC = sc.nextLine();
+                                    System.out.println("Precio unitario de la cerveza: ");
+                                    double precioUnitarioC = sc.nextDouble();
+                                    System.out.println("Stock de las cervezas: ");
+                                    int stockC = sc.nextInt();
+                                    System.out.println("Graduacion alcoholica: ");
+                                    double graduacionAlcoholicaG = sc.nextDouble();
+                                    System.out.println("¿Es retornable la botella? (0. Si, 1. No");
+                                    int esRetornableC = sc.nextInt();
+                                    //Valido que si el usuario ingresa otra cosa es porque no es retornable
+                                    if (esRetornableC != 1 || esRetornableC != 0){
+                                        esRetornableC = 1;
+                                    }  
+                                    //reutilizamos la variable ya existente para trabajar con la instancia de conexion
+                                    conexion = new conexionDB();
+                                    //llamamos al metodo para insertar cervezas en la base de datos
+                                    conexion.insertarCerveza(marcaC, precioUnitarioC, stockC, graduacionAlcoholicaG, esRetornableC);
+                                    
+                                }catch (InputMismatchException e){
+                                    System.out.println("Ingrese los valores que son pedidos");
+                                }
+                                break;
+                            
+                            case 4:
+                                //valido que ingrese los valores que deseo
+                                try{
+                                    //pido la informacion que necesito para realizar la actualizacion de gaseosa
+                                    System.out.println("Ingrese el id de la gaseosa a actualizar: ");
+                                    int idActualizarG = sc.nextInt();
+                                    System.out.println("Ingrese el nuevo precio: ");
+                                    double nuevoPrecioG = sc.nextDouble();
+                                    System.out.println("Ingrese el nuevo stock: ");
+                                    int nuevoStockG = sc.nextInt();
+                                    sc.nextLine();
+                                    conexion = new conexionDB();
+                                    conexion.actualizarGaseosa(opcion, nuevoPrecioG, nuevoStockG);
+                                    
+                                }catch (InputMismatchException e){
+                                    System.out.println("Ingrese los valores que son pedidos");
+                                }
+                                break;
+                                
+                                
+                            case 6:
+                                try{
+                                    //pido la informacion que necesito para realizar la eliminar de gaseosa
+                                    System.out.println("Ingrese el id de la gaseosa a eliminar: ");
+                                    int idEliminarG = sc.nextInt();
+                                    sc.nextLine();
+                                    //instancio conexion y llamo al metodo que la elimina
+                                    conexion = new conexionDB();
+                                    conexion.eliminarGaseosa(opcion);
+                                    
+                                }catch (InputMismatchException e){
+                                    System.out.println("Ingrese los valores que son pedidos");
+                                }
+                                break;
+                            
+                            case 8:
+                                //instancio conexion y llamo al metodo que muestra la tabla
+                                    conexion = new conexionDB();
+                                    conexion.verTablaGaseosa();
+                                    break;
+                            case 10:
+                                System.out.println("Gracias por utilizar nuestra Gestion de Inventario y Base de datos");
+                                break;
+                            default:
+                                System.out.println("Ingrese una opcion valida");
+                                break;
                         }
-                    } while (opcion != 4);
+                    } while (opcion != 10);
                     
                 case 2:
                     System.out.println("Bienvenido al Sistema de control sobre la información de la distribuidora");
@@ -296,6 +408,7 @@ public class Integrador_Programacion_II {
                                 
                             case 10:
                                 System.out.println("Gracias por usar el Sistema de control sobre la información de la distribuidora");
+                                break;
                             default:
                                 System.out.println("Ingrese una opcion valida");
                                 break;
