@@ -419,33 +419,15 @@ public class Integrador_Programacion_II {
                                 break;
                                 
                             case 8:
-                                //El for para que itere por cada proveedor guardado en la lista
-                                System.out.println("Ingrese la cantidad de gaseosa que tiene: ");
-                                int cantidadT = sc.nextInt();
-                                sc.nextLine();
-                                for (Proveedores proveedor : distribuidora.getListaProveedores()) {
-                                    System.out.println("Bebidas del proveedor: " + proveedor.getRazonSocial());  
-                                    
-                                    //Descuento cerveza
-                                    System.out.println("Ingrese el descuento para cerveza:");
-                                    int descuentoCerveza = sc.nextInt();
-                                    proveedor.getTipoCerveza().calcularPrecio(descuentoCerveza);
-                                    
-                                    //Descuento gaseosa
-                                    System.out.println("Ingrese el descuento para gaseosa");
-                                    int descuentoGaseosa = sc.nextInt();
-                                    sc.nextLine();
-                                    proveedor.getTipoGaseosa().calcularPrecio(descuentoGaseosa, true,cantidadT);
-                                }
-                                break;
+                                
+                              
                                 
                             case 9:
-                                //Se usa el for para mostrar todos los detalles de las bebidas de todos los proveedores
-                                System.out.println("Mostrando los detales de las bebidas registradas");
-                                for (Proveedores proveedor : distribuidora.getListaProveedores()) {
-                                    proveedor.getTipoCerveza().mostrarDetalles();
-                                    proveedor.getTipoGaseosa().mostrarDetalles();
-                                }
+                                
+                                //instancio conexion y llamo a los metodos que muestran las tablas
+                                conexionDB conexion = new conexionDB();
+                                conexion.verTablaGaseosa();
+                                conexion.verTablaCerveza();
                                 break;
                                 
                             case 10:

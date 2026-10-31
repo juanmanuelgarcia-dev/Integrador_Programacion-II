@@ -47,10 +47,6 @@ public class Empleados {
         this.nombre = nombre;
     }
     
-    public void insertarVenta(){
-        System.out.println("El empleaado");
-    }
-    
     public void RegistrarVenta(VentaRealizada venta){
         System.out.println("El empleado " + this.getNombre() + " quiere registrar la venta de " + venta);
     }
