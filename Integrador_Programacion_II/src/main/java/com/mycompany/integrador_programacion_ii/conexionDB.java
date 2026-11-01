@@ -59,6 +59,9 @@ public class conexionDB {
                             """;
         
         try (Statement stmt = conn.createStatement()) {
+            
+        stmt.execute(borrarGaseosa);
+        stmt.execute(borrarCerveza);
         
         stmt.execute(sqlgaseosas);
         stmt.execute(sqlcerveza);
@@ -286,11 +289,11 @@ public class conexionDB {
                 //mostramos la tabla
                 System.out.println("ID: " + id + ", Marca: " + marca + ", Precio: " + precio + ", Stock: " + stock + ",Graduacion Alcohólica: " + graduacionAlcoholica + " Es Retornable(0. No, 1. Si) " + esRetornable);
                 
+            }
                 //si no hay registros es que no hemos cargado cerveza
                 if (!hayRegistros){
                     System.out.println("No hay cervezas cargadas en la base de datos");
                 }
-            }
         } catch (SQLException e){
             //si se produce un error
             System.out.println("Error al consultar para ver las cervezas " + e.getMessage());

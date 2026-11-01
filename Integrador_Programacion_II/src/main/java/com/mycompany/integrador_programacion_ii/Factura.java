@@ -33,7 +33,7 @@ public class Factura {
         this.tipoDeVenta = tipoDeVenta;
     }
     
-    //completar
+    //Metodo para imprimir la factura
     public void imprimirFactura(){
         System.out.println("En el dia " + this.tipoDeVenta.getFecha() + 
                 " el cliente " + this.tipoDeVenta.getCliente().getNombre() + 

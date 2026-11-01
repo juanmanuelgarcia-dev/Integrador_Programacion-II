@@ -83,12 +83,12 @@ public class VentaRealizada {
     
 
     //Metodos
-    public void registrarVentaRealizada(Empleados empleado){
-        //SQL
+    public void registrarVentaRealizada(){
+        System.out.println("El empleado " + this.empleado.getNombre() + " quiere registrar la venta al cliente " + this.cliente.getDni() + " en el dia de " + this.getFecha());
     }
     
-    public void mostrarDetallesVenta(Bebida bebida,int numeroLote,Empleados empleado){
+    public void mostrarDetallesVenta(int numeroLote,Empleados empleado){
         double totalVenta = this.precioUnitario * this.cantidad;
-        System.out.println("La bebida " + bebida.getMarca() + " del lote " + numeroLote + " por el costo de " + totalVenta + " fue realizada en el dia de " + this.fecha + " por el empleado " + empleado.getNombre());
+        System.out.println("La bebida del lote " + numeroLote + " por el costo de " + totalVenta + " fue realizada en el dia de " + this.fecha + " por el empleado " + empleado.getNombre());
     }
 }

@@ -79,35 +79,44 @@ public class Integrador_Programacion_II {
                                     
                                 }catch (InputMismatchException e){
                                     System.out.println("Ingrese los valores que son pedidos");
+                                    sc.next();
                                 }
                                     break;
                             
                             case 3:
-                                //Pido la informacion para agregar en la tabla de cerveza
+                                // Pido la informacion para agregar en la tabla de cerveza
                                 try{
                                     System.out.println("Marca de la cerveza: ");
                                     String marcaC = sc.nextLine();
+        
                                     System.out.println("Precio unitario de la cerveza: ");
                                     double precioUnitarioC = sc.nextDouble();
+        
                                     System.out.println("Stock de las cervezas: ");
                                     int stockC = sc.nextInt();
+        
                                     System.out.println("Graduacion alcoholica: ");
                                     double graduacionAlcoholicaG = sc.nextDouble();
-                                    System.out.println("¿Es retornable la botella? (0. No, 1. Si");
-                                    int esRetornableC = sc.nextInt();
-                                    //Valido que si el usuario ingresa otra cosa es porque no es retornable
-                                    if (esRetornableC != 1 || esRetornableC != 0){
-                                        esRetornableC = 0; //si el usuario ingresa otra opcion la tomamos por no retornable
-                                    }  
-                                    //reutilizamos la variable ya existente para trabajar con la instancia de conexion
+        
+                                    // Lo leemos como String para evitar que explote si escriben "si" o "no"
+                                    System.out.println("¿Es retornable la botella? (0. No, 1. Si): ");
+                                    String respuestaRetornable = sc.next();
+                                    sc.nextLine(); // Limpiamos el buffer
+        
+                                    int esRetornableC = 0; // Por defecto asumimos que no
+                                    if (respuestaRetornable.equalsIgnoreCase("si") || respuestaRetornable.equals("1")) {
+                                        esRetornableC = 1;
+                                    }
+        
+                                    // Reutilizamos la variable conexion
                                     conexion = new conexionDB();
-                                    //llamamos al metodo para insertar cervezas en la base de datos
                                     conexion.insertarCerveza(marcaC, precioUnitarioC, stockC, graduacionAlcoholicaG, esRetornableC);
-                                    
-                                }catch (InputMismatchException e){
-                                    System.out.println("Ingrese los valores que son pedidos");
-                                }
-                                break;
+        
+                                    }catch (InputMismatchException e){
+                                        System.out.println("Ingrese los valores numéricos que son pedidos correctamente.");
+                                    sc.next(); // Limpia el búfer si falló en precio, stock o graduación
+                                    }
+                                    break;
                             
                             case 4:
                                 //valido que ingrese los valores que deseo
@@ -125,6 +134,7 @@ public class Integrador_Programacion_II {
                                     
                                 }catch (InputMismatchException e){
                                     System.out.println("Ingrese los valores que son pedidos");
+                                    sc.next();
                                 }
                                 break;
                             
@@ -143,6 +153,7 @@ public class Integrador_Programacion_II {
                                     conexion.actualizarCerveza(idActualizarC, nuevoPrecioC, nuevoStockC);
                                 }catch (InputMismatchException e){
                                     System.out.println("Ingrese los valores que son pedidos");
+                                    sc.next();
                                 }
                                 break;
                                 
@@ -158,6 +169,7 @@ public class Integrador_Programacion_II {
                                     
                                 }catch (InputMismatchException e){
                                     System.out.println("Ingrese los valores que son pedidos");
+                                    sc.next();
                                 }
                                 break;
                                 
@@ -174,6 +186,7 @@ public class Integrador_Programacion_II {
                                     
                                 }catch (InputMismatchException e){
                                     System.out.println("Ingrese los valores que son pedidos");
+                                    sc.next();
                                 }
                                 break;
                             
@@ -212,9 +225,8 @@ public class Integrador_Programacion_II {
                         System.out.println("5. Agregar proveedores");
                         System.out.println("6. Eliminar proveedores");
                         System.out.println("7. Realizar factura");
-                        System.out.println("8. Calcular precios de las bebidas");
-                        System.out.println("9. Mostrar detalles de las bebidas");
-                        System.out.println("10. Salir");
+                        System.out.println("8. Calcular precios de las bebidas y Mostrar detalles de las bebidas");
+                        System.out.println("9. Salir");
                         opcion = sc.nextInt();
                         sc.nextLine();
                         
@@ -237,6 +249,7 @@ public class Integrador_Programacion_II {
                                     distribuidora.agregarEmpleado(nuevoEmpleado);                                  
                                 } catch (InputMismatchException e){
                                     System.out.println("Debe ingresar un valor entero");
+                                    sc.next();
                                 }
                                 break;
                                 
@@ -250,6 +263,7 @@ public class Integrador_Programacion_II {
                                     
                                 } catch (InputMismatchException e){
                                     System.out.println("Debe ingresar un valor entero");
+                                    sc.next();
                                 } catch (EmpleadoNoEncontradoException e){
                                     System.out.println(e.getMessage());
                                 }
@@ -260,7 +274,7 @@ public class Integrador_Programacion_II {
                                 try{
                                     System.out.println("Ingrese el nombre del cliente");
                                     String nombre = sc.nextLine();
-                                    System.out.println("Ingresar el dni del clliente");
+                                    System.out.println("Ingresar el dni del cliente");
                                     String dni = sc.nextLine();
                                     String respuesta;
                                     boolean estaInteresado = false;
@@ -291,6 +305,7 @@ public class Integrador_Programacion_II {
                                     
                                 }catch (InputMismatchException e){
                                     System.out.println("Debe ingresar un valor entero");
+                                    sc.next();
                                 }
                                 break;
                             
@@ -367,7 +382,8 @@ public class Integrador_Programacion_II {
                                     
                                     distribuidora.agregarProveedores(nuevoProveedor);
                                 }catch (InputMismatchException e){
-                                    System.out.println(e.getMessage());
+                                    System.out.println("Debe ingresar un valor entero");
+                                    sc.next();
                                 }
                                 break;
                                 
@@ -376,70 +392,158 @@ public class Integrador_Programacion_II {
                                 try{
                                     System.out.println("Ingrese la razon social del proveedor ");
                                     String razonSocial = sc.nextLine();
-                                    distribuidora.eliminarClientes(razonSocial);
-                                } catch (ClientesNoEncontradosException e){
+                                    distribuidora.eliminarProveedores(razonSocial);
+                                } catch (ProveedorNoEncontradoException e){
                                     System.out.println(e.getMessage());
                                 }
                                 break;
                             
                             case 7:
-                                Date fecha = new Date();
-                                System.out.println("Ingrese el total de la venta: ");
-                                double total = sc.nextDouble();
-                                System.out.println("Ingrese la cantidad: ");
-                                int cantidad = sc.nextInt();
-                                System.out.println("Ingrese el precio unitario: ");
-                                double precioUnitario = sc.nextDouble();
-                                sc.nextLine();
+                                try{
+                                    Date fecha = new Date();
+                                    System.out.println("Ingrese el total de la venta: ");
+                                    double total = sc.nextDouble();
+                                    System.out.println("Ingrese la cantidad: ");
+                                    int cantidad = sc.nextInt();
+                                    System.out.println("Ingrese el precio unitario: ");
+                                    double precioUnitario = sc.nextDouble();
+                                    sc.nextLine();
                                 
-                                //Pedimos los atributos para instanciar cliente
-                                System.out.println("Ingrese el nombre del cliente que compro: ");
-                                String nombre = sc.nextLine();
-                                System.out.println("Ingrese el dni del cliente que compro: ");
-                                String dni = sc.nextLine();
-                                //Ya realizo la compra asi que tomamos el interes del cliente
-                                boolean interes = true;
+                                    //Pedimos los atributos para instanciar cliente
+                                    System.out.println("Ingrese el nombre del cliente que compro: ");
+                                    String nombre = sc.nextLine();
+                                    System.out.println("Ingrese el dni del cliente que compro: ");
+                                    String dni = sc.nextLine();
+                                    //Ya realizo la compra asi que tomamos el interes del cliente
+                                    boolean interes = true;
                                 
-                                //Pedimos los atributos para instanciar empleado
-                                System.out.println("Ingrese el id del empleado: ");
-                                int id = sc.nextInt();
-                                sc.nextLine();
-                                System.out.println("Ingrese el nombre del empleado que realizo la venta: ");
-                                nombre = sc.nextLine();
-                                System.out.println("Ingrese el telefono del empleadp que realizo la venta: ");
-                                String telefono = sc.nextLine();
+                                    //Pedimos los atributos para instanciar empleado
+                                    System.out.println("Ingrese el id del empleado: ");
+                                    int id = sc.nextInt();
+                                    sc.nextLine();
+                                    System.out.println("Ingrese el nombre del empleado que realizo la venta: ");
+                                    nombre = sc.nextLine();
+                                    System.out.println("Ingrese el telefono del empleadp que realizo la venta: ");
+                                    String telefono = sc.nextLine();
                                 
-                                Clientes clienteQueRealizoCompra = new Clientes(nombre,dni,interes);
-                                Empleados empleadoQueRealizoLaVenta = new Empleados(id,telefono,nombre);
-                                
-                                VentaRealizada venta = new VentaRealizada(cantidad,fecha,precioUnitario,clienteQueRealizoCompra,empleadoQueRealizoLaVenta,total);
-                                
-                                //Realizo la factura con la instanciacion de venta
-                                venta.getFactura().imprimirFactura();
+                                    Clientes clienteQueRealizoCompra = new Clientes(nombre,dni,interes);
+                                    Empleados empleadoQueRealizoLaVenta = new Empleados(id,telefono,nombre);
+                                    System.out.println("Ingrese el numero de lote de la venta: ");
+                                    int numeroLote = sc.nextInt();
+                                    System.out.println("Ingrese el total de la venta: ");
+                                    double totalVenta = sc.nextDouble();
+                                    
+                                    VentaRealizada venta = new VentaRealizada(cantidad,fecha,precioUnitario,clienteQueRealizoCompra,empleadoQueRealizoLaVenta,total);
+                                    //Usamos los metodos de registrar venta t mostrar los detalles previo a imprimir factura
+                                    venta.mostrarDetallesVenta(numeroLote, empleadoQueRealizoLaVenta);
+                                    venta.registrarVentaRealizada();
+                                    //Realizo la factura con la instanciacion de venta
+                                    venta.getFactura().imprimirFactura();
+                                }catch (InputMismatchException e){
+                                    System.out.println("Debe ingresar un valor entero");
+                                    sc.next();
+                                }
                                 break;
                                 
                             case 8:
+                                try{
+                                    //Pedimos los valores para instanciar cerveza
+                                    System.out.println("Ingrese la marca de la cerveza: ");
+                                    String marcaCer = sc.nextLine();
+                                    System.out.println("Ingrese el stock disponible de la cerveza: ");
+                                    int stockCer = sc.nextInt();
+                                    System.out.println("Ingrese el precio de la cerveza: ");
+                                    double precioCer = sc.nextDouble();
+                                    System.out.println("Ingrese la graduacion alcoholica de la cerveza: ");
+                                    double gradosAlcohol = sc.nextDouble();
+                                    String respuesta;
+                                    boolean esRetornable = false;
+                                    do{
+                                        System.out.println("La botella es retornable (s/n) ");
+                                        respuesta = sc.nextLine();
+                                        if (respuesta.equalsIgnoreCase("s")){
+                                            esRetornable = true;
+                                        }else if (respuesta.equalsIgnoreCase("n")){
+                                            esRetornable = false;
+                                        }else {
+                                            System.out.println("Debe ingresar (s/n)");
+                                        }
+                                    }while (!respuesta.equalsIgnoreCase("s") && !respuesta.equalsIgnoreCase("n"));
                                 
-                              
+                                    //Pedimos los valores para calcular el precio
+                                    System.out.println("Ingrese el descuento aplicado si es retornable: ");
+                                    int descuentoCer = sc.nextInt();
+                                    System.out.println("Cantidad de cerveza a calcular: ");
+                                    int cantidadAgregarCer = sc.nextInt();
+                                    sc.nextLine();
+                                
+                                    //Instanciamos cerveza
+                                    Cerveza cerveza = new Cerveza(gradosAlcohol,esRetornable,marcaCer,precioCer,stockCer);
+                                
+                                    //Pedimos los valores para instanciar gaseosa
+                                    System.out.println("Ingrese la marca de la gaseosa: ");
+                                    String marcaGaseosa = sc.nextLine();
+                                    System.out.println("Ingrese la cantidad de botellas de gaseosa que desea: ");
+                                    int cantidadGaseosa = sc.nextInt();
+                                    System.out.println("Ingrese el stock de botellas de gaseosa que tiene en bodega: ");
+                                    int stockGaseosa = sc.nextInt();
+                                    System.out.println("Ingrese el precio unitario por gaseosa: ");
+                                    double precioUnitarioGaseosa = sc.nextDouble();
+                                    sc.nextLine();
+                                    System.out.println("Ingrese la graduacion de azucar de la gaseosa (0 si no contiene): ");
+                                    boolean esZero = false;
+                                    double gradosAzucar = sc.nextDouble();
+                                    if (gradosAzucar == 0){
+                                        esZero = true;
+                                    }
+                                
+                                    //Pedimos los valores para calcular el precio
+                                    boolean HayDescuento = false;
+                                    String rta;
+                                    do{
+                                        System.out.println("Hay descuento aplicado (s/n) ");
+                                        rta = sc.nextLine();
+                                        if (rta.equalsIgnoreCase("s")){
+                                            HayDescuento = true;
+                                        }else if (rta.equalsIgnoreCase("n")){
+                                            HayDescuento = false;
+                                        }else {
+                                            System.out.println("Debe ingresar (s/n)");
+                                        }
+                                    }while (!rta.equalsIgnoreCase("s") && !rta.equalsIgnoreCase("n"));
+                                    int descuentoGaseosa = 0;
+                                    if (HayDescuento == true){
+                                        System.out.println("Ingrese el descuento: ");
+                                        descuentoGaseosa = sc.nextInt();
+                                    }else{
+                                        descuentoGaseosa = 0;
+                                    }
+                                    System.out.println("Ingrese la cantidad que desea: ");
+                                    int cantidadGa = sc.nextInt();
+                                    sc.nextLine();
+                                
+                                    //Instanciamos la clase gaseosa
+                                    Gaseosa gaseosa = new Gaseosa(gradosAzucar, esZero, marcaGaseosa, precioUnitarioGaseosa, stockGaseosa);
+                                
+                                    cerveza.mostrarDetalles();
+                                    cerveza.calcularPrecio(descuentoCer, cantidadAgregarCer);
+                                
+                                    gaseosa.mostrarDetalles();
+                                    gaseosa.calcularPrecio(descuentoGaseosa, HayDescuento, cantidadGa);
+                                }catch (InputMismatchException e){
+                                    System.out.println("Debe ingresar un valor entero");
+                                    sc.next();
+                                }
                                 
                             case 9:
-                                
-                                //instancio conexion y llamo a los metodos que muestran las tablas
-                                conexionDB conexion = new conexionDB();
-                                conexion.verTablaGaseosa();
-                                conexion.verTablaCerveza();
-                                break;
-                                
-                            case 10:
                                 System.out.println("Gracias por usar el Sistema de control sobre la información de la distribuidora");
                                 break;
                                 
                             default:
                                 System.out.println("Ingrese una opcion valida");
-                                break;
-                                
+                                break;    
                         }
-                    }while (opcion != 10);
+                    }while (opcion != 9);
                 
                 case 3:
                     System.out.println("Gracias por utilizar el programa de la distribuidora S.A.");
