@@ -55,6 +55,11 @@ public class Cerveza extends Bebida{
         }
     }
     
+    public void calcularPrecio(int cantidadAgregar){
+        double total = cantidadAgregar * this.precio;
+            System.out.println("El precio por la cantidad de " + cantidadAgregar + " unidades es de " + total);
+    }
+    
     //Override=Sobreescritura
     @Override
     public void mostrarDetalles(){

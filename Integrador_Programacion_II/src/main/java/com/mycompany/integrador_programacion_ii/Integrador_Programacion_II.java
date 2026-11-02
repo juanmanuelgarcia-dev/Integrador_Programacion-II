@@ -130,7 +130,7 @@ public class Integrador_Programacion_II {
                                     int nuevoStockG = sc.nextInt();
                                     sc.nextLine();
                                     conexion = new conexionDB();
-                                    conexion.actualizarGaseosa(opcion, nuevoPrecioG, nuevoStockG);
+                                    conexion.actualizarGaseosa(idActualizarG, nuevoPrecioG, nuevoStockG);
                                     
                                 }catch (InputMismatchException e){
                                     System.out.println("Ingrese los valores que son pedidos");

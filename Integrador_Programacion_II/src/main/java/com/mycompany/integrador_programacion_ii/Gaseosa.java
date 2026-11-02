@@ -39,6 +39,12 @@ public class Gaseosa extends Bebida{
         }
     }
     
+    public void calcularPrecio(int cantidad){
+        double total = cantidad * this.precio;
+        System.out.println("El precio por la cantidad de " + cantidad + " unidades es de " + total);
+    }
+    
+    
     //Override=Sobreescritura
     @Override
     public void mostrarDetalles(){
